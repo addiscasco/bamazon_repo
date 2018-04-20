@@ -1,6 +1,7 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 
+//opens tunnel between node and mysql
 var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
@@ -9,71 +10,52 @@ var connection = mysql.createConnection({
     database: 'bamazon'
 });
 
+//opens gate -- have a way to pass info through the gate before it closes
 connection.connect(function (err) {
     if (err) throw (err);
-    // console.log(`connected as id ${connection.threadId}`);
-
-    // //make the connection and then pass the query and a callbk function
-    var query = connection.query("SELECT * FROM products", function (err, res) {
-        if (err) throw err;
+    connection.query("SELECT * FROM products", function (err, res) {
+        if (err) throw (err);
+        console.log("   WELCOME TO BAMAZON   ");
+        console.log("========================");
         for (var i = 0; i < res.length; i++) {
-            console.log(res[i].id + "|" + res[i].product_name + " |" + res[i].price);
+            console.log("ID: " + res[i].id + "|" + res[i].product_name + "|" + "PRICE: " + res[i].price + "|" + "QTY: " + res[i].stock_quantity);
+            // console.log(`this is not ${JSON.stringify(res[i])}`);
         };
-        start();
-        //  console.log(res);
-    });
-
+        start(res);
+    })
 });
-
-function start() {
-    inquirer.prompt([{
-        type: "input",
-        name: "productID",
-        message: "Please enter ID of product you would like to buy"
-    },
-    {
-        type: "input",
-        name: "quanityDesired",
-        message: "How many would you like to purchase?"
-    }
+//starts questions to customer
+function start(res) {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "productID",
+            message: "Please enter ID of product you would like to buy",
+        },
+        {
+            type: "input",
+            name: "qtyDesired",
+            message: "How many would you like to purchase?",
+        }
     ])
         .then(function (answer) {
-            // when finished prompting, insert a new item into the db with that info
-            
+            var identification = answer.productID;
+            var requestedQuantity = answer.qtyDesired;
+            var selectedProduct;
 
-            //get the information of the chosen item 
-            var chosenProduct;
-            for (var i=0; i <res.length; i++) {
-                if (results[i].id === answer.productID){
-                    chosenProduct = results[i];
-                }
+
+            //grab id from user input and connect
+            //check if stock quantity >= requestedquantity then 
+            console.log("DLSKJDS: " + res[0].product_name);
+
+            function get_info (data, promise) {
+                var sql = "SELECT * FROM products WHERE info = data";
+
+                connection.query(sql, function (err, res) {
+                    if (err) throw (err);
+                    // console.log("DLSKJDS: " + results);
+// ask about callback function and res[0]
+                })
             }
-
-            // connection.query(
-            //     "SELECT * FROM products ?",
-            //     {
-            //         id: answer.id,
-            //         stock_quantity: answer.stock_quantity
-            //     },
-            //     function () {
-            //         if (error) throw error;
-            //         console.log("ajfldkjf;lasdf");
-            //         // re-prompt the user for if they want to bid or post
-            //         // start();
-            //     }
-            // );
-        
-        });
+        })
 }
-
-// function chkInventory () {
-//     if (stock_quantity > 0){
-//         //fulfill the order, update SQL DB, show cost of total purchase
-//     }
-//     else {
-//         console.log("Sorry, out of stock!");
-//     }
-
-// }
-
-
