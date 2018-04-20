@@ -44,14 +44,15 @@ function start(res) {
             connection.query(`SELECT * FROM products WHERE id = ${identification}`, function (err, res) {
                 if (res[0].stock_quantity < requestedQuantity) {
                     console.log("cannot fulfill order");
-
+                    start(res);
                 }
                 else {
                     connection.query(`UPDATE products SET stock_quantity = ${res[0].stock_quantity} - ${requestedQuantity} WHERE id = ${identification}`);
+
+                    console.log("Your order is complete!");
                     console.log(`ID: ${identification} NEW QUANTITY: ${res[0].stock_quantity - requestedQuantity}`);
+                    console.log(`Your TOTAL: ${res[0].price * requestedQuantity}`);
                 }
-
             });
-
         })
 }
