@@ -41,14 +41,17 @@ function start(res) {
             var identification = parseInt(answer.productID);
             var requestedQuantity = parseInt(answer.qtyDesired);
             var selectedProduct;
+            connection.query(`SELECT * FROM products WHERE id = ${identification}`, function (err, res) {
+                if (res[0].stock_quantity < requestedQuantity) {
+                    console.log("cannot fulfill order");
 
-            if (res[0].stock_quantity < requestedQuantity) {
-                console.log("cannot fulfill order");
+                }
+                else {
+                    connection.query(`UPDATE products SET stock_quantity = ${res[0].stock_quantity} - ${requestedQuantity} WHERE id = ${identification}`);
+                    console.log(`ID: ${identification} NEW QUANTITY: ${res[0].stock_quantity - requestedQuantity}`);
+                }
 
-            }
-            else {
-                connection.query(`UPDATE products SET stock_quantity = ${res[0].stock_quantity} - ${requestedQuantity} WHERE id = ${identification}`);
-                console.log(`ID: ${identification} NEW QUANTITY: ${res[0].stock_quantity - requestedQuantity}`);
-            }
+            });
+
         })
 }
