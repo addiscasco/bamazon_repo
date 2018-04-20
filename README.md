@@ -1,7 +1,4 @@
-# bamazon_repo
-
-
-Welcome to Bamazon! 
+#Welcome to Bamazon! 
 An Amazon-like storefront built with  JavaScript, MySQL, and Node.js
 
 
@@ -11,9 +8,9 @@ The customer side of Bamazon allows you to view the current items for purchase, 
 #Video Demo
 
 
-#Getting Started with Bamazon
+##Getting Started with Bamazon
 
-#Installations
+######Installations
 + npm install
 + npm inquirer
 + npm MySQL
@@ -24,5 +21,5 @@ The customer side of Bamazon allows you to view the current items for purchase, 
 ###### Step 2
 + Follow the prompts
 
-#Contributer
+##Contributer
 + Addis Casco
