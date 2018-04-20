@@ -19,7 +19,6 @@ connection.connect(function (err) {
         console.log("========================");
         for (var i = 0; i < res.length; i++) {
             console.log("ID: " + res[i].id + "|" + res[i].product_name + "|" + "PRICE: " + res[i].price + "|" + "QTY: " + res[i].stock_quantity);
-            // console.log(`this is not ${JSON.stringify(res[i])}`);
         };
         start(res);
     })
@@ -39,23 +38,17 @@ function start(res) {
         }
     ])
         .then(function (answer) {
-            var identification = answer.productID;
-            var requestedQuantity = answer.qtyDesired;
+            var identification = parseInt(answer.productID);
+            var requestedQuantity = parseInt(answer.qtyDesired);
             var selectedProduct;
 
+            if (res[0].stock_quantity < requestedQuantity) {
+                console.log("cannot fulfill order");
 
-            //grab id from user input and connect
-            //check if stock quantity >= requestedquantity then 
-            console.log("DLSKJDS: " + res[0].product_name);
-
-            function get_info (data, promise) {
-                var sql = "SELECT * FROM products WHERE info = data";
-
-                connection.query(sql, function (err, res) {
-                    if (err) throw (err);
-                    // console.log("DLSKJDS: " + results);
-// ask about callback function and res[0]
-                })
+            }
+            else {
+                connection.query(`UPDATE products SET stock_quantity = ${res[0].stock_quantity} - ${requestedQuantity} WHERE id = ${identification}`);
+                console.log(`ID: ${identification} NEW QUANTITY: ${res[0].stock_quantity - requestedQuantity}`);
             }
         })
 }
