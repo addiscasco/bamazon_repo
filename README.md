@@ -2,11 +2,11 @@
 An Amazon-like storefront built with  JavaScript, MySQL, and Node.js
 
 
-The customer side of Bamazon allows you to view the current items for purchase, the identification number, the quantity in the invetory, and the price of those items. You may choose an item for purchase by followng the prompted questions of 'what product you would like to buy?' and 'what quantity you would like to purchase?'. If Bamazon doesn't have sufficient inventory to complete your transaction, you will receive a message that alerts you of this. 
+The customer side of Bamazon allows you to view the current items for purchase, the identification number, the quantity in the invetory, and the price of those items. You may choose an item for purchase by followng the prompted questions of 'what product would you like to buy?' and 'what quantity would you like to purchase?'. If Bamazon doesn't have sufficient inventory to complete your transaction, you will receive a message that alerts you of this. 
 
 
 # Video Demo
-
+https://cl.ly/3Q14043C1F2s
 
 ## Getting Started with Bamazon
 
