@@ -6,7 +6,7 @@ The customer side of Bamazon allows you to view the current items for purchase, 
 
 
 # Video Demo
-https://cl.ly/3Q14043C1F2s
+https://cl.ly/2Q0A260l3a02
 
 ## Getting Started with Bamazon
 
